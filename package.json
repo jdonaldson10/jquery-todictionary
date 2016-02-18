@@ -1,0 +1,22 @@
+{
+  "name": "jquery-todictionary",
+  "version": "1.2.0",
+  "description": "Transforms an arbitary JSON object into an array of name-value pairs.",
+  "main": "jquery-todictionary.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdonaldson10/jquery-todictionary.git"
+  },
+  "keywords": [
+    "jquery-plugin"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jdonaldson10/jquery-todictionary/issues"
+  },
+  "homepage": "https://github.com/jdonaldson10/jquery-todictionary#readme"
+}
