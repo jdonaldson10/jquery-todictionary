@@ -6,7 +6,7 @@ This flatter structure works great with the default model binder in ASP.NET, esp
 
 ### Install
 ``` js
-npm install jdonaldson10/jquery-todictionary#master
+npm install jquery-todictionary
 ```
 
 ### Usage
