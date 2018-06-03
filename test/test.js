@@ -1,47 +1,48 @@
 import test from 'ava';
 import '../jquery-todictionary';
+
 const toDictionary = global.jQuery.toDictionary;
 
 /* SIMPLE INPUTS
- *******************************************************/
-test('simple null value', t => {
+ ****************************************************** */
+test('simple null value', (t) => {
   const input = { foo: null };
   const expected = [];
   t.deepEqual(toDictionary(input), expected);
 });
 
-test('simple undefined value', t => {
+test('simple undefined value', (t) => {
   const input = { foo: undefined };
   const expected = [];
   t.deepEqual(toDictionary(input), expected);
 });
 
-test('simple boolean:true value', t => {
+test('simple boolean:true value', (t) => {
   const input = { foo: true };
   const expected = [{ name: 'foo', value: true }];
   t.deepEqual(toDictionary(input), expected);
 });
 
-test('simple boolean:false value', t => {
+test('simple boolean:false value', (t) => {
   const input = { foo: false };
   const expected = [{ name: 'foo', value: false }];
   t.deepEqual(toDictionary(input), expected);
 });
 
-test('simple string value', t => {
+test('simple string value', (t) => {
   const input = { foo: 'bar' };
   const expected = [{ name: 'foo', value: 'bar' }];
   t.deepEqual(toDictionary(input), expected);
 });
 
-test('simple date value', t => {
+test('simple date value', (t) => {
   const input = { foo: new Date() };
   const expected = [{ name: 'foo', value: input.foo.toISOString() }];
   t.deepEqual(toDictionary(input), expected);
 });
 
-test('simple array value', t => {
-  const input = { foo: [ 'a', 2, true, new Date() ] };
+test('simple array value', (t) => {
+  const input = { foo: ['a', 2, true, new Date()] };
   const expected = [
     { name: 'foo[0]', value: 'a' },
     { name: 'foo[1]', value: 2 },
@@ -51,28 +52,28 @@ test('simple array value', t => {
   t.deepEqual(toDictionary(input), expected);
 });
 
-test('simple RegExp value', t => {
+test('simple RegExp value', (t) => {
   const input = { foo: /[a-zA-Z]/g };
   const expected = [];
   t.deepEqual(toDictionary(input), expected);
 });
 
 /* NESTED OBJECTS
- *******************************************************/
-test('multiple nested structures', t => {
-  const input = { 
+ ****************************************************** */
+test('multiple nested structures', (t) => {
+  const input = {
     a: {
       b: {
         c: {
           foo: 'bar',
           field1: 'xyz',
           field2: 123,
-        },     
+        },
       },
-      bb: [ 1, 2, 3, 4, 5 ],
+      bb: [1, 2, 3, 4, 5],
     },
     x: {
-      y: 9001
+      y: 9001,
     },
     timestamp: new Date(),
   };
@@ -92,15 +93,15 @@ test('multiple nested structures', t => {
 });
 
 /* HANDLING FUNCTION INPUTS
- *******************************************************/
-test('input as a function is resolved before returning result', t => {
+ ****************************************************** */
+test('input as a function is resolved before returning result', (t) => {
   const input = () => ({ foo: 'bar' });
   const expected = [{ name: 'foo', value: 'bar' }];
   t.deepEqual(toDictionary(input), expected);
 });
 
-test('object with function properties are excluded from the result', t => {
-  const input = { 
+test('object with function properties are excluded from the result', (t) => {
+  const input = {
     foo: 'bar',
     func: () => {},
   };
@@ -109,9 +110,9 @@ test('object with function properties are excluded from the result', t => {
 });
 
 /* PREFIXES
- *******************************************************/
-test('supplied prefixes get added start of all resulting field names', t => {
-  const input = { 
+ ****************************************************** */
+test('supplied prefixes get added start of all resulting field names', (t) => {
+  const input = {
     foo: 'bar',
     abc: 123,
     xyz: true,
@@ -119,7 +120,7 @@ test('supplied prefixes get added start of all resulting field names', t => {
       prop: 'qwerty',
       level2: {
         very: 'deep',
-        arr: [ 'a', 'b', 'c' ],
+        arr: ['a', 'b', 'c'],
       },
     },
   };
@@ -137,12 +138,12 @@ test('supplied prefixes get added start of all resulting field names', t => {
 });
 
 /* INCLUDE NULLS
- *******************************************************/
-const testIncludeNullsInput = { 
+ ****************************************************** */
+const testIncludeNullsInput = {
   foo: 'bar',
   something: null,
   wat: undefined,
-  arr: [ 'one', 'two', 'three', null, 12345 ],
+  arr: ['one', 'two', 'three', null, 12345],
 };
 
 const expectedIncludeNullsOutput = [
@@ -155,11 +156,11 @@ const expectedIncludeNullsOutput = [
   { name: 'arr[4]', value: 12345 },
 ];
 
-test('includeNulls (as 2nd param)', t => {
+test('includeNulls (as 2nd param)', (t) => {
   t.deepEqual(toDictionary(testIncludeNullsInput, true), expectedIncludeNullsOutput);
 });
 
-test('includeNulls (as 3rd param)', t => {
+test('includeNulls (as 3rd param)', (t) => {
   t.deepEqual(toDictionary(testIncludeNullsInput, '', true), expectedIncludeNullsOutput);
 });
 
