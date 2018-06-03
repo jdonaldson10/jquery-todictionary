@@ -41,9 +41,9 @@
     {
       for (var p in input)
       {
-        if (includeNulls === true || typeof (input[p]) !== "undefined" && input[p] !== null)
+        if (includeNulls === true || typeof (input[p]) !== 'undefined' && input[p] !== null)
         {
-          _flatten(input[p], output, prefix.length > 0 ? prefix + "." + p : p, includeNulls);
+          _flatten(input[p], output, prefix.length > 0 ? prefix + '.' + p : p, includeNulls);
         }
       }
     }
@@ -67,18 +67,18 @@
           var val = typeof (input);
           switch (val)
           {
-            case "boolean":
-            case "number":
+            case 'boolean':
+            case 'number':
               val = input;
               break;
-            case "object":
+            case 'object':
               // this property is null, because non-null objects are evaluated in first if branch
               if (includeNulls !== true)
               {
                   return;
               }
             default:
-              val = input || "";
+              val = input || '';
           }
           output.push({ name: prefix, value: val });
         }
@@ -96,18 +96,18 @@
       // get data first if provided parameter is a function
       data = $.isFunction(data) ? data.call() : data;
 
-      // is second argument "prefix" or "includeNulls"
-      if (arguments.length === 2 && typeof (prefix) === "boolean")
+      // is second argument 'prefix' or 'includeNulls'
+      if (arguments.length === 2 && typeof (prefix) === 'boolean')
       {
         includeNulls = prefix;
-        prefix = "";
+        prefix = '';
       }
 
-      // set "includeNulls" default
-      includeNulls = typeof (includeNulls) === "boolean" ? includeNulls : false;
+      // set 'includeNulls' default
+      includeNulls = typeof (includeNulls) === 'boolean' ? includeNulls : false;
 
       var result = [];
-      _flatten(data, result, prefix || "", includeNulls);
+      _flatten(data, result, prefix || '', includeNulls);
 
       return result;
     }
