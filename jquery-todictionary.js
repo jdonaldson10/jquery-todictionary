@@ -10,31 +10,31 @@
  
 (function ($) {
 
-    // #region Date.prototype.toISOString
-    // add Date prototype toISOString function if it doesn't yet exist
-    if ($.isFunction(Date.prototype.toISOString) === false)
-    {
-        Date.prototype.toISOString = function () {
-            var pad = function (n, places) {
-                n = n.toString();
-                for (var i = n.length; i < places; i++)
-                {
-                    n = "0" + n;
-                }
-                return n;
-            };
-            var d = this;
-            return 
-                d.getUTCFullYear() + '-' +
-                pad(d.getUTCMonth() + 1, 2) + '-' +
-                pad(d.getUTCDate(), 2) + 'T' +
-                pad(d.getUTCHours(), 2) + ':' +
-                pad(d.getUTCMinutes(), 2) + ':' +
-                pad(d.getUTCSeconds(), 2) + '.' +
-                pad(d.getUTCMilliseconds(), 3) + 'Z';
+    // Date.prototype.toISOString Polyfill
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString#Polyfill
+    if (!Date.prototype.toISOString) {
+      (function() {
+
+        function pad(number) {
+          if (number < 10) {
+            return '0' + number;
+          }
+          return number;
+        }
+
+        Date.prototype.toISOString = function() {
+          return this.getUTCFullYear() +
+            '-' + pad(this.getUTCMonth() + 1) +
+            '-' + pad(this.getUTCDate()) +
+            'T' + pad(this.getUTCHours()) +
+            ':' + pad(this.getUTCMinutes()) +
+            ':' + pad(this.getUTCSeconds()) +
+            '.' + (this.getUTCMilliseconds() / 1000).toFixed(3).slice(2, 5) +
+            'Z';
         };
+
+      }());
     }
-    // #endregion
     
     var _flatten = function (input, output, prefix, includeNulls) {
         if ($.isPlainObject(input))
