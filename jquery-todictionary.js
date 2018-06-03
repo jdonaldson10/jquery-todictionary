@@ -9,23 +9,7 @@
  */
  
 (function ($) {
- 
-    // #region String.prototype.format
-    // add String prototype format function if it doesn't yet exist
-    if ($.isFunction(String.prototype.format) === false)
-    {
-        String.prototype.format = function () {
-            var s = this;
-            var i = arguments.length;
-            while (i--)
-            {
-                s = s.replace(new RegExp("\\{" + i + "\\}", "gim"), arguments[i]);
-            }
-            return s;
-        };
-    }
-    // #endregion
- 
+
     // #region Date.prototype.toISOString
     // add Date prototype toISOString function if it doesn't yet exist
     if ($.isFunction(Date.prototype.toISOString) === false)
@@ -40,19 +24,18 @@
                 return n;
             };
             var d = this;
-            return "{0}-{1}-{2}T{3}:{4}:{5}.{6}Z".format(
-                d.getUTCFullYear(),
-                pad(d.getUTCMonth() + 1, 2),
-                pad(d.getUTCDate(), 2),
-                pad(d.getUTCHours(), 2),
-                pad(d.getUTCMinutes(), 2),
-                pad(d.getUTCSeconds(), 2),
-                pad(d.getUTCMilliseconds(), 3)
-            );
+            return 
+                d.getUTCFullYear() + '-' +
+                pad(d.getUTCMonth() + 1, 2) + '-' +
+                pad(d.getUTCDate(), 2) + 'T' +
+                pad(d.getUTCHours(), 2) + ':' +
+                pad(d.getUTCMinutes(), 2) + ':' +
+                pad(d.getUTCSeconds(), 2) + '.' +
+                pad(d.getUTCMilliseconds(), 3) + 'Z';
         };
     }
     // #endregion
- 
+    
     var _flatten = function (input, output, prefix, includeNulls) {
         if ($.isPlainObject(input))
         {
@@ -69,7 +52,7 @@
             if ($.isArray(input))
             {
                 $.each(input, function (index, value) {
-                    _flatten(value, output, "{0}[{1}]".format(prefix, index));
+                    _flatten(value, output, prefix + '[' + index + ']');
                 });
                 return;
             }
