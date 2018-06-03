@@ -1,9 +1,9 @@
 /*!
  * jQuery toDictionary() plugin
  *
- * Version 1.2 (11 Apr 2011)
+ * Version 1.3.1
  *
- * Copyright (c) 2011 Robert Koritnik
+ * Copyright (c) 2018 James Donaldson
  * Licensed under the terms of the MIT license
  * http://www.opensource.org/licenses/mit-license.php
  */
